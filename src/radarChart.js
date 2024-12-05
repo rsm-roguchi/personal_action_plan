@@ -12,13 +12,21 @@ export function createRadarChart(containerId, jsonData) {
     const tacticValues = tacticKeys.map((key) => jsonData.TACTIC[key]);
     const uniqueTactics = [...new Set(tacticValues)];
 
-    const avgValues = uniqueTactics.map((tactic) => {
-        const filteredValues = tacticKeys
-            .filter((key) => jsonData.TACTIC[key] === tactic)
-            .map((key) => parseFloat(jsonData.Value[key]));
-        const avg = filteredValues.reduce((sum, val) => sum + val, 0) / filteredValues.length;
-        return avg.toFixed(2);
+    const calculateAvgForTactic = (tactic, key) => {
+        return tacticKeys
+            .filter((k) => jsonData.TACTIC[k] === tactic)
+            .map((k) => parseFloat(jsonData[key][k]));
+    };
+
+    const avgSelfScores = uniqueTactics.map((tactic) => {
+        const scores = calculateAvgForTactic(tactic, "SELF_SCORE");
+        return (scores.reduce((sum, val) => sum + val, 0) / scores.length).toFixed(2);
     });
+
+    const avgGroupScores = uniqueTactics.map((tactic) => {
+        const scores = calculateAvgForTactic(tactic, "GROUP_MEAN_SELF_SCORE");
+        return (scores.reduce((sum, val) => sum + val, 0) / scores.length).toFixed(2);
+    })
 
     const canvas = document.createElement("canvas");
     canvas.width = 800;
@@ -29,10 +37,17 @@ export function createRadarChart(containerId, jsonData) {
         labels: uniqueTactics,
         datasets: [
             {
-                label: "Average Tactic Value",
-                data: avgValues,
+                label: "Self Score",
+                data: avgSelfScores,
                 backgroundColor: "rgba(34, 202, 236, 0.2)",
                 borderColor: "rgba(34, 202, 236, 1)",
+                borderWidth: 2,
+            },
+            {
+                label: "Group Mean Self Score",
+                data: avgGroupScores,
+                backgroundColor: "rgba(255, 99, 132, 0.2)",
+                borderColor: "rgba(255, 99, 132, 1)",
                 borderWidth: 2,
             },
         ],
@@ -45,7 +60,7 @@ export function createRadarChart(containerId, jsonData) {
             plugins: {
                 title: {
                     display: true,
-                    text: "Absolute Score",
+                    text: "Self vs Group Mean Self Score",
                     font: {
                         size: 20,
                     },

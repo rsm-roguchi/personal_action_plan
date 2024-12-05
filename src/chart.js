@@ -77,7 +77,63 @@ export function createChart(containerId, jsonData) {
             .attr("y", d => yScale(d.tactic))
             .attr("width", d => xScale(d.avgPercentile))
             .attr("height", yScale.bandwidth())
-            .style("fill", d => colorScale(d.avgPercentile));
+            .style("fill", d => colorScale(d.avgPercentile))
+            .on('mouseover', function (event, d) {
+                d3.select(this)
+                    .transition()
+                    .duration(200)
+                    .style('fill', bar => colorScale(bar.avgPercentile))
+                    .style("opacity", 1);
+                
+                chart.selectAll(".label")
+                    .transition()
+                    .duration(200)
+                    .style("opacity", 1);
+
+                chart.selectAll(".tick text")
+                    .transition()
+                    .duration(200)
+                    .style("opacity", 1);
+                
+                chart.selectAll(".bar")
+                    .filter(bar => bar !== d)
+                    .transition()
+                    .duration(200)
+                    .style("fill", bar => colorScale(bar.avgPercentile))
+                    .style("opacity", 0.2);
+                
+                chart.selectAll(".label")
+                    .filter(label => label !== d)
+                    .transition()
+                    .duration(200)
+                    .style("opacity", 0.2);
+                
+                chart.selectAll(".tick text")
+                    .filter(function (text) {
+                        return d3.select(this).text() !== d.tactic;
+                    })
+                    .transition()
+                    .duration(200)
+                    .style("opacity", 0.2);
+            })
+            .on("mouseout", function (event, d) {
+
+                chart.selectAll(".bar")
+                    .transition()
+                    .duration(200)
+                    .style("fill", bar => colorScale(bar.avgPercentile))
+                    .style("opacity", 1);
+                
+                chart.selectAll(".label")
+                    .transition()
+                    .duration(200)
+                    .style("opacity", 1);
+
+                chart.selectAll(".tick text")
+                    .transition()
+                    .duration(200)
+                    .style("opacity", 1);
+            });
 
         // Add labels
         chart.selectAll(".label")
@@ -89,6 +145,7 @@ export function createChart(containerId, jsonData) {
             .attr("y", d => yScale(d.tactic) + yScale.bandwidth() / 2)
             .attr("dy", "0.35em")
             .style("font-size", "12px")
+            .style("opacity", 1)
             .text(d => d.avgPercentile.toFixed(1));
 
         // Add axes
@@ -99,7 +156,8 @@ export function createChart(containerId, jsonData) {
             .attr("transform", `translate(0,${chartHeight})`)
             .call(xAxis);
 
-        chart.append("g").call(yAxis);
+        chart.append("g").call(yAxis)
+            .style("opacity", 1);
     }
 
     // Render "Value" section

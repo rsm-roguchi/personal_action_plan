@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Action Plan</title>
+    <!-- Include D3.js -->
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <!-- Link to the standalone script -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script type="module" src="./src/chart.js"></script>
+    <script type="module" src="./src/heatmap.js"></script>
+    <script type="module" src="./src/radarChart.js"></script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./src/style.css">
+    <script src="./src/fadeIn.js"></script>
+</head>
+<body>
+    <h1>Personal Action Plan For: Ryosuke Oguchi</h1>
+    <section class ='fade-in'>
+        <section class="fade-in">
+            <h2>Influence Percentile Rankings</h2>
+            <div id="chart-container"></div>
+        </section>
+        <section class="fade-in">
+            <h2>Power Usage Frequencies</h2>
+            <div id="scatter-heatmap-container" style="display: flex; flex-wrap: wrap;"></div>
+        </section>
+        <section class="fade-in">
+            <h2>Item Level Scoring</h2>
+            <div id="radar-chart-container"></div>
+        </section>
+
+        <script type="module">
+            import { createChart } from './src/chart.js';
+            import { createScatter } from './src/heatmap.js';
+            import { createRadarChart } from './src/radarChart.js';
+
+            // Fetch the JSON data and render the charts
+            fetch('./data/full_data.json')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(jsonData => {
+                    console.log("Loaded JSON Data:", jsonData); // Debugging output
+                    const dataArray = Object.keys(jsonData.ITEM).map(index => ({
+                        ITEM: jsonData.ITEM[index],
+                        Tactic: jsonData.Tactic[index],
+                        SELF_SCORE: jsonData.SELF_SCORE[index]
+                    }));
+
+                    console.log("Transformed Data:", dataArray); // Debugging output
+
+                    // Call the functions
+                    createChart("#chart-container", jsonData);
+                    createScatter(dataArray, "#scatter-heatmap-container")
+                    createRadarChart("radar-chart-container", jsonData)
+                })
+                .catch(error => {
+                    console.error("Failed to load JSON data:", error);
+                });
+        </script>
+    </section>
+    <section class="fade-in">
+        <div id="Similar & Different">
+            <h2>Comparison Profiles</h2>
+            <h3>Similar Figures</h3>
+            <ul>
+                <li><b>Albert Einstein</b>: His transformative work in physics and relentless curiosity reshaped humanity's understanding of the universe, making him a paragon of logical thinking and credibility.</li>
+                <li><b>Marie Curie</b>: Her groundbreaking research in radioactivity, combined with unparalleled perseverance, exemplifies logical reasoning and steadfast determination.</li>
+                <li><b>Angela Merkel</b>: As a trained scientist and long-serving Chancellor of Germany, Merkel's pragmatic and logical decision-making earned her global respect for credible and driven leadership.</li>
+            </ul>
+            <h3>Figures to Follow</h3>
+            <ul>
+                <li><b>Jacinda Arden</b>: As Prime Minister of New Zealand, Ardern showcased exceptional empathy in leadership, particularly during crises like the Christchurch mosque shootings and COVID-19. Her collaborative style emphasizes teamwork and reciprocity in governance.</li>
+                <li><b>Mahatma Gandhi</b>: Gandhi's leadership in India's non-violent independence movement was grounded in empathy for the oppressed and a focus on mutual respect and reciprocity to inspire collective action.</li>
+                <li><b>Nelson Mandela</b>: Embodied teamwork, empathy, and reciprocity by uniting a divided South Africa through inclusive leadership, understanding his oppressors' fears, and fostering collaboration for lasting reconciliation.</li>
+            </ul>
+        </div>
+    </section>
+    <section class="fade-in">
+        <div id="summary-section">
+            <h2>Summary & Insights</h2>
+            <h3>Strengths</h3>
+            <ul>
+                <li>Logical Thinking (Smart Power)</li>
+                <li>Credibility (Hard Power)</li>
+                <li>Intentionality and Drive (Smart Power)</li>
+            </ul>
+            <h3>Weaknesses</h3>
+            <ul>
+                <li>Team-Work (Soft Power)</li>
+                <li>Empathy (Soft Power)</li>
+                <li>Reciprocity (Soft Power)</li>
+            </ul>
+            <h3>Details</h3>
+            <p id="Summary">According to the data was provided by myself and peers in this class, here are some key insights and prospective development programs for my influence tactics in the future:</p>
+            <h4>Strengths: Self-Awareness and Strategic Thinking</h4>
+            <p id="Strength Summary">The largest strength of my influence tactic is the ability to combine analytical thinking and goal oriented approaches as seen in the high scores in smart power and intentionality.
+                This means that relative to my peers, I have greater usage frequencies in logic based arguments.
+                Although this can be seen as slightly misleading due to the greater availability of soft power, my particular report reveals that my smart power is balanced relative to soft power tactics.
+                However, one positive that should be taken into consideration is the unique usage of Ethos which is a hard power.
+                This pairs well with the ability to Logos power as without foundational stability through credibility, confidence, and background knowledge, any logical argument will not stand up in many settings.</p>
+            <h4>Weaknesses: Lack of Soft power (And a Need to Build Coalitions)</h4>
+            <p id="Weakness Summary">The greatest weakness in my influence tactics is my lack of usage in soft power across the board.
+                Although there is relative usage in emotional power via pathos and allocentrism, my reliance on teams and external parties.
+                As per Cialdini, it is well noted that emotional influence is driven by two factors: liking and similarity.
+                In order to maintain a well established relationship with managers and peers, creating early trust through an emotional connection will create support for decisions in the future.
+                Moreover, offering praise is a source of affection that “charms and disarms” (Cialdini).
+                In other words, positivity establishes a liking that people are willing to reciprocate with.
+                Nonetheless, I may have some influence over concerned parties, being able to understand others to a higher level will make way for greater opportunities for collaboration and professional relationships.</p>
+            <p id="Weakness Summary 2">But in order to improve these team-building aspects, there are tools that I must develop before building useful relationships.
+                One of these key tools is the other aspect of Hard Power: of that which is “Might”; being able to assert myself in conflicts, manage people, enforce boundaries, will allow me to expand networks without running into power dynamic troubles.
+                In situations of uncertainty, Cialdini states that people often turn to experts, and “might” can be driven by ethos or knowledge that I already utilize.
+                The other power I need to utilize is the tool of exchange. However, these aspects are nuanced as I believe that using favors and rewards to influence others might lead to habits of manipulation.
+                Cialdini claims that human nature is quite the opposite, as people are inclined to respond with positivity if offered.
+                Known as a “first-mover” advantage, leaders should become the role model of behavior to drive systems of reciprocity that people build support networks off of.</p>
+            <p id="Weakness Summary 3">This aspect of team building leads into the importance of utilizing social capital in team settings.
+                To fully utilize social capital to its fullest potential, Ronald Burt claims it is necessary to understand a few aspects of social organizations.
+                These are to understand how companies work, understand what skills are needed to develop younger managers, find the right people to manage teams, understand diversity issues, anticipate bottlenecks and catalysts to organizational change.
+                Therefore, being able to utilize soft power to a greater degree will allow myself to exploit differences between people to a stronger degree.
+                In general, Burt outlines that diverse teams have better ability to cover "structural holes” and have more control over their work product and challenges they come across.
+                This is because the team has a greater access to more expertise through a wider range of contacts; furthermore, they have better abilities to work across teams that helps them excel in tough situations.</p>
+        </div>
+    </section>
+</body>
+</html>

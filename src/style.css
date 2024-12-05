@@ -1,0 +1,153 @@
+/* style.css */
+
+/* Center everything on the page */
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    color: #333;
+    font-family: 'Roboto', sans-serif;
+    line-height: 1.6;
+}
+
+h1, h2, h3 {
+    font-weight: 700;
+}
+
+a {
+    color: #ff5722;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+p {
+    margin-right: 50px;
+    margin-left: 50px;
+    text-align: left;
+}
+
+ul {
+    margin-right: 50px;
+    margin-left: 50px;
+    list-style-position: inside;
+    text-align: left;
+    text-indent: -23px;
+    margin-bottom: 20px;
+    padding-left: 40px;
+}
+
+header {
+    background-color: #0056b3; /* Accent color */
+    color: white;
+    padding: 20px 0;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+header h1 {
+    margin: 0;
+    font-size: 2rem;
+}
+
+#scatter-heatmap-container, #chart-container, #radar-chart-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+div {
+    padding: 10px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+
+/* Title styling */
+h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+h2 {
+    margin-right: 30px;
+    margin-left: 30px;
+    text-align: center;
+}
+
+h3 {
+    margin-right: 40px;
+    margin-left: 40px;
+    text-align: center;
+}
+
+h4 {
+    margin-right: 40px;
+    margin-left: 40px;
+    text-align: center;
+}
+
+/* Radar chart container */
+#radar-chart-container {
+    margin-top: 25px;
+    text-align: center;
+}
+
+/* Adjust canvas size */
+#radar-chart-container canvas {
+    max-width: 800px;
+    max-height: 800px;
+    margin: 0 auto;
+}
+
+/* Style for the radar chart title */
+#radar-chart-container h2 {
+    font-size: 20px;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+/* Optional styling for other chart containers */
+#chart-container,
+#scatter-heatmap-container {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.fade-in {
+    opacity: 0; /* Start invisible */
+    transform: translateY(20px); /* Slightly shifted down */
+    transition: opacity 1s ease-out, transform 1s ease-out;
+}
+
+.fade-in.visible {
+    opacity: 1; /* Fully visible */
+    transform: translateY(0); /* Move to original position */
+}
+
+section {
+    min-height: 100vh; /* Each section takes the full height of the viewport */
+    margin: 50px 0;
+}
+
+
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+body {
+    animation: fadeIn 1s ease-in;
+}
+

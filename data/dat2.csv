@@ -1,0 +1,31 @@
+ITEM,TACTIC,SELF_SCORE,GROUP_MEAN_SELF_SCORE,PERCENTILE
+I recognize when circumstances change.,Situation Awareness,3.0,3.1,45
+I recognize when uncertainty is high.,Situation Awareness,3.0,2.97,50
+I analyze situations from multiple perspectives.,Situation Awareness,3.0,3.3,34
+I am sensitive to how situations vary in their importance.,Situation Awareness,3.0,3.09,45
+I act before being asked to.,Agency,2.0,2.62,25
+I consider how a situation can be improved.,Agency,2.0,3.18,6
+I work beyond explicit job expectations.,Agency,2.0,2.73,23
+I create new alternatives.,Agency,2.0,2.84,18
+I try to understand what issues are really motivating the other person.,Allocentrism,2.0,3.09,8
+I adapt my own ideas by accepting suggestions from others.,Allocentrism,2.0,3.01,12
+I look for solutions that will benefit all parties involved.,Allocentrism,2.0,3.14,8
+I cultivate the support of others by involving them in the decision-making process.,Allocentrism,2.0,3.12,8
+I work to address potential tensions with key people prior to the decision point.,Coalitions,2.0,3.01,14
+I find ways to communicate who else is supporting my approach.,Coalitions,2.0,2.99,13
+"I enlist the support of individuals, one by one, in order to build support for an idea.",Coalitions,2.0,2.79,21
+I seek to understand which people are likely to influence a decision.,Coalitions,2.0,3.12,8
+I identify existing coalitions and work through them.,Coalitions,2.0,2.94,12
+I gather support from different parts of my organization.,Coalitions,2.0,2.79,19
+I make my efforts and accomplishments known.,Ethos,2.0,2.7,21
+I find ways to make concessions in order to encourage others to do the same.,Exchange,2.0,2.83,17
+I support mutual compromise when facing strong resistance.,Exchange,2.0,2.95,12
+I offer to do things for others in return for their support.,Exchange,2.0,2.69,26
+I understand the need to help others in order to get help from them.,Exchange,2.0,3.25,6
+I offer rewards to people for compliance.,Exchange,2.0,2.6,30
+I find ways to make points as simply as possible.,Logos,2.0,3.08,8
+I let people know when they perform below expectations.,Might,2.0,2.36,38
+I am willing to confront difficult people-related issues.,Might,2.0,2.73,21
+I am willing to use the authority of my position to get others to do what I want.,Might,2.0,2.26,40
+I am comfortable enforcing negative consequences when appropriate.,Might,2.0,2.49,31
+I am able to tolerate conflict.,Might,2.0,2.79,19

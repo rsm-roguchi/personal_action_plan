@@ -16,6 +16,12 @@ export function createScatter(data, containerId) {
         Hard: { x: 0.7, y: 0.2, stdDev: 0.08 }  // Cluster down and away (bottom-right)
     };
 
+    const tacticCounts ={
+        Smart: 4,
+        Soft: 6,
+        Hard: 2
+    };
+
     // Iterate over each tactic group and create a scatter plot
     groupedData.forEach((tacticData, tacticName) => {
         // Get clustering parameters for the current tactic
@@ -23,6 +29,7 @@ export function createScatter(data, containerId) {
 
         const totalUsage = tacticData.reduce((sum, d) => sum + (d.SELF_SCORE || 0), 0);
         const percentage = ((totalUsage / data.reduce((sum, d) => sum + (d.SELF_SCORE || 0), 0)) * 100).toFixed(1);
+        const nameCount = tacticCounts[tacticName];
 
         // Create a container for each tactic
         const container = d3.select(containerId)
@@ -36,7 +43,7 @@ export function createScatter(data, containerId) {
             .style("text-align", "center");
 
         container.append("p")
-            .text(`Usage: ${percentage}%; Frequency: ${totalUsage}`)
+            .text(`Usage: ${percentage}%; Frequency: ${totalUsage}; Types: ${nameCount}`)
             .style("text-align", "center")
             .style("font-size", "14px")
             .style("color", "gray");
@@ -110,11 +117,36 @@ export function createScatter(data, containerId) {
             .data(points)
             .enter()
             .append("circle")
+            .attr('class', 'scatter-point')
             .attr("cx", d => xScale(d.x))
             .attr("cy", d => yScale(d.y))
             .attr("r", 4) // Slightly larger points for better visibility
             .attr("fill", tacticColors[tacticName]) // Red color for contrast
-            .attr("opacity", 0.8); // Semi-transparent for layering
+            .attr("opacity", 0.8) // Semi-transparent for layering
+            .on("mouseover", function (event, d) {
+                
+                d3.select(this)
+                    .transition()
+                    .duration(200)
+                    .attr('opacity', 0.8)
+                    .attr("r", 6);
+                
+                svg.selectAll(".scatter-point")
+                    .filter(function () {
+                        return this !== event.target;
+                    })
+                    .transition()
+                    .duration(200)
+                    .attr("opacity", 0.3);
+            })
+            .on("mouseout", function() {
+
+                svg.selectAll(".scatter-point")
+                    .transition()
+                    .duration(200)
+                    .attr("opacity", 0.8)
+                    .attr("r", 4);
+            });
     });
 }
 
